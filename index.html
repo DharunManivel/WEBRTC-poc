@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>SSB-webRtc</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/main.css" />
+  <link href="node_modules/@fortawesome/fontawesome-free/css/fontawesome.css" rel="stylesheet">
+  <link href="node_modules/@fortawesome/fontawesome-free/css/all.css" rel="stylesheet">
+  <link href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="display-4 justify-content-center row text-dark">
+      SSB - Video Chat Demo
+    </div>
+    <div class="row justify-content-center py-4">
+      <label class="row justify-content-center">Enter Caller Mobile Number</label>
+      <div class="row input-group justify-content-center flex-nowrap">
+        <input id="phone" type="number" class="col col-md-4 col-sm-8 col-lg-2 form-control" placeholder="Caller Number"
+          aria-label="Enter Caller Mobile Number !">
+      </div>
+      <div class="pt-2 justify-content-center">
+      &nbsp; &nbsp; <i id="call" title="Call" class="fas fa-phone-alt btn btn-outline-success"></i>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col col-lg-3">
+        <div id="local" style="display:none" class="card border-primary mb-3">
+          <div class="card-header">Local Stream</div>
+          <div class="card-body">
+            <video id="localVideo" autoplay muted></video>
+          </div>
+        </div>
+      </div>
+      <div class="col col-lg-3">
+
+        <div id="remote" style="display:none" class="card border-success mb-3">
+          <div class="card-header">Remote Stream</div>
+          <div class="card-body">
+            <video id="remoteVideo" autoplay></video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-2 justify-content-center">
+     
+      &nbsp; &nbsp; <i id="muteAudio" style="display:none" title="Mute Audio" class="fas fa-microphone-alt btn btn-outline-warning"></i>
+      &nbsp; &nbsp;  <i id="endCall" style="display:none" title="End Call" class="fas fa-phone-slash btn btn-outline-danger"></i>
+      &nbsp; &nbsp; <i id="muteVideo" style="display:none" title="Mute Video" class="fas fa-video btn btn-outline-warning"></i>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>

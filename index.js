@@ -5,7 +5,7 @@ var nodeStatic = require('node-static');
 var http = require('http');
 var socketIO = require('socket.io');
 
-var fileServer = new(nodeStatic.Server)();
+var fileServer = new(nodeStatic.Server)('./ui');
 var app = http.createServer(function (req, res) {
   fileServer.serve(req, res);
 }).listen(8080);
@@ -23,7 +23,6 @@ io.sockets.on('connection', function (socket) {
   socket.on('message', function (message) {
     log('Client said: ', message);
     // for a real app, would be room-only (not broadcast)
-    console.log("Message Session",message.session)
     socket.broadcast.emit('message', message);
   });
 

@@ -1,0 +1,49 @@
+
+video {
+  max-width: 100%;
+  width: 320px;
+}
+
+.msg_cotainer{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 0;
+  border-bottom-left-radius:25px;
+  border-top-right-radius:25px;
+  border-bottom-right-radius:25px;
+  background-color:#78e08f;
+  padding: 10px;
+  position: relative;
+  width: 80%;
+}
+.msg_cotainer_send{
+  margin: 0 0 0 auto;
+  border-top-left-radius:25px;
+  border-bottom-right-radius:25px;
+  border-bottom-left-radius:25px;
+  background-color: #82ccdd;
+  padding: 10px;
+  position: relative;
+  width: 80%;
+}           
+.msg_time{
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  color: rgba(255,255,255,0.5);
+  font-size: 10px;
+}
+.msg_time_send{
+  position: absolute;
+  right:0;
+  bottom: -15px;
+  color: rgba(255,255,255,0.5);
+  font-size: 10px;
+}
+.msg_head{
+  position: relative;
+}
+.chat-box{
+  height: 200px;
+  overflow: auto;
+}

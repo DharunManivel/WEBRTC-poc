@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>SSB-webRtc</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css" />
+  <link href="fontawesome-free-5.10.0-web/css/all.css" rel="stylesheet">
+  <link href="fontawesome-free-5.10.0-web/css/fontawesome.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+      id="myModal">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">Incoming Call From <span id="caller"></span> ?</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal" id="modal-btn-si">Connect</button>
+            <button type="button" class="btn btn-outline-danger" data-dismiss="modal" id="modal-btn-no">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="display-4 justify-content-center row text-dark">
+      SSB - Video Chat Demo
+    </div>
+    <div id="user" class="justify-content-center row text-dark">
+    </div>
+    <div id="mobile-input" class="row justify-content-center py-4">
+
+      <label class="row justify-content-center">Enter Caller Mobile Number</label>
+      <div class="row input-group justify-content-center flex-nowrap">
+        <input id="phone" type="number" class="col col-md-4 col-sm-8 col-lg-2 form-control" placeholder="Caller Number"
+          aria-label="Enter Caller Mobile Number !">
+      </div>
+    </div>
+    <div class="row mt-2 justify-content-center mb-2">
+      &nbsp; &nbsp; <i id="call" title="Call" class="fas fa-phone-alt btn btn-outline-success"></i>
+      &nbsp; &nbsp; <i id="muteAudio" style="display:none" title="Mute Audio"
+        class="fas fa-microphone-alt btn btn-outline-warning"></i>
+      &nbsp; &nbsp; <i id="endCall" style="display:none" title="End Call"
+        class="fas fa-phone-slash btn btn-outline-danger"></i>
+      &nbsp; &nbsp; <i id="muteVideo" style="display:none" title="Mute Video"
+        class="fas fa-video btn btn-outline-warning"></i>
+
+    </div>
+  </div>
+  <div class="row m-0">
+    <div class="col-lg-9 col p-0">
+
+      <div class="row justify-content-center m-0">
+        <div class="col col-lg-5">
+          <div id="local" style="display:none" class="card border-primary mb-3">
+            <div class="card-header">Local Stream</div>
+            <div class="card-body">
+              <video id="localVideo" autoplay muted></video>
+            </div>
+          </div>
+        </div>
+        <div class="col col-lg-5">
+
+          <div id="remote" style="display:none" class="card border-success mb-3">
+            <div class="card-header">Remote Stream</div>
+            <div class="card-body ">
+              <video id="remoteVideo" autoplay></video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="col ">
+      <div style="display: none" id="chat-box">
+        <div class="card border-primary mb-3">
+          <div id="remote-name" class="card-header"></div>
+          <div id="chat-body" class="card-body chat-box">
+            
+
+          </div>
+          <div class="card-footer input-group">
+            <input type="text" class="form-control" placeholder="Type here..." id="text-chat">
+            <div class="input-group-append ">
+              <div id="send" class="btn btn-primary">
+                <i class=" fas fa-location-arrow pt-1"></i>
+                &nbsp; Send</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="../socket.io/socket.io.js"></script>
+  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="main.js"></script>
+
+</body>
+
+</html>

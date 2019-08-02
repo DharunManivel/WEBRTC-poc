@@ -25,8 +25,8 @@ var pcConfig = {
     'urls': 'stun:stun.l.google.com:19302'
   }]
 };
-var user=document.getElementById("user") ;
-user.innerHTML= "Hi "+myNumber;
+var user = document.getElementById("user");
+user.innerHTML = "Hi " + myNumber;
 // Set up audio and video regardless of what devices are present.
 var sdpConstraints = {
   offerToReceiveAudio: true,
@@ -40,16 +40,16 @@ var socket = io.connect();
 var detail = {};
 var caller;
 socket.on('receive/' + myNumber, function (detail) {
-  var myModalLabel=document.getElementById("caller") ;
+  var myModalLabel = document.getElementById("caller");
 
-  caller=detail.myNumber;
-  myModalLabel.innerHTML= caller;
+  caller = detail.myNumber;
+  myModalLabel.innerHTML = caller;
   $('#myModal').modal('show');
-  $("#modal-btn-si").on("click", function(){
+  $("#modal-btn-si").on("click", function () {
     socket.emit('create or join', detail.room);
     console.log('$$$$$   JOINED IN ', detail.room);
   });
-  
+
 });
 
 function makeCall() {
@@ -115,7 +115,7 @@ function sendMessage(message) {
 
 // This client receives a message
 socket.on('message', function (message) {
-  console.log("Receiving Global Messages", message)
+
   if (message.session == myNumber) {
     console.log('Client received message:', message);
     if (message.type === 'got user media') {
@@ -127,13 +127,13 @@ socket.on('message', function (message) {
       pc.setRemoteDescription(new RTCSessionDescription(message));
       doAnswer();
     } else if (message.type === 'answer' && isStarted) {
-console.log("----ANSWER----",message)
+      console.log("----Recieved ANSWER----")
       pc.setRemoteDescription(new RTCSessionDescription({
-        "sdp":message.sdp,
-        "type":message.type
+        "sdp": message.sdp,
+        "type": message.type
       }));
       document.getElementById("remote").style.display = "block";
-   
+
     } else if (message.type === 'candidate' && isStarted) {
       var candidate = new RTCIceCandidate({
         sdpMLineIndex: message.label,
@@ -143,7 +143,7 @@ console.log("----ANSWER----",message)
       pc.addIceCandidate(candidate);
     } else if (message.type === 'bye' && isStarted) {
       handleRemoteHangup();
-    } else if(message.type === 'textMessage'){
+    } else if (message.type === 'textMessage') {
       console.log("Text Message Receicved")
       showReceivedMessage(message);
     }
@@ -187,7 +187,8 @@ console.log('Getting user media with constraints', constraints);
 
 if (location.hostname !== 'beta.ssbsoft.com') {
   requestTurn(
-    'https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913'
+    console.log("********************* ENTERED TURN SERVER *********************")
+   // 'https://computeengineondemand.appspot.com/turn?username=41784574&key=4080218913'
   );
 }
 
@@ -206,7 +207,7 @@ function maybeStart() {
   }
 }
 
-window.onbeforeunload = function (){
+window.onbeforeunload = function () {
   hangup();
 };
 
@@ -229,11 +230,11 @@ function createPeerConnection() {
 function handleIceCandidate(event) {
   console.log('icecandidate event: ', event);
   if (event.candidate) {
-    console.log("$$$$$$$$$$$$$$$candidate$$$$$$$$$$$$$$$", event.candidate.sdpMid);
+
     sendMessage({
       type: 'candidate',
       label: event.candidate.sdpMLineIndex,
-      id: event.candidate.sdpMid, 
+      id: event.candidate.sdpMid,
       candidate: event.candidate.candidate,
       session: session
     });
@@ -252,11 +253,11 @@ function doCall() {
 }
 
 function doAnswer() {
-   session = caller;
+  session = caller;
   console.log('Sending answer to peer.');
   document.getElementById("local").style.display = "block";
   document.getElementById("remote").style.display = "block";
-  
+
   document.getElementById("call").style.display = "none";
   document.getElementById("mobile-input").style.display = "none";
   document.getElementById("muteAudio").style.display = "block";
@@ -273,10 +274,10 @@ function doAnswer() {
 
 function setLocalAndSendMessage(sessionDescription) {
   session = sessionDescription.type == 'answer' ? caller : detail.receiver;
-  console.log("SESSION",session);
-  
-  var rName=document.getElementById("remote-name") ;
-  rName.innerHTML= session + " Says.."
+  console.log("SESSION", session);
+
+  var rName = document.getElementById("remote-name");
+  rName.innerHTML = session + " Says.."
   sessionDescription.session = session
   pc.setLocalDescription(sessionDescription);
   console.log('setLocalAndSendMessage sending message', sessionDescription);
@@ -394,29 +395,29 @@ function stop() {
   pc = null;
 }
 var chatBody = document.getElementById('chat-body');
-function sendText(){
+function sendText() {
   var msg = document.getElementById('text-chat').value;
-  var dateobj = new Date(); 
+  var dateobj = new Date();
 
   const offsetMs = dateobj.getTimezoneOffset() * 60 * 1000;
-  const msLocal =  dateobj.getTime() - offsetMs;
+  const msLocal = dateobj.getTime() - offsetMs;
   const dateLocal = new Date(msLocal);
   const iso = dateLocal.toISOString();
   const isoLocal = iso.slice(0, 19);
- 
 
-  var dateStr = isoLocal; 
-console.log("%%%%%%%%%%%%%%%%%||DATE||"+dateStr);
+
+  var dateStr = isoLocal;
+
   sendMessage({
-    type:"textMessage",
-    session:session,
-    message:msg,
-    from:myNumber,
-    time:dateStr
+    type: "textMessage",
+    session: session,
+    message: msg,
+    from: myNumber,
+    time: dateStr
   });
   var node = document.createElement("DIV");
   node.setAttribute("id", "my-msg");
-  node.setAttribute("class","d-flex justify-content-end mb-4 msg_cotainer_send");
+  node.setAttribute("class", "d-flex justify-content-end mb-4 msg_cotainer_send");
   var textnode = document.createTextNode(msg);
   node.appendChild(textnode);
   chatBody.appendChild(node);
@@ -425,14 +426,14 @@ console.log("%%%%%%%%%%%%%%%%%||DATE||"+dateStr);
 
 }
 
-function showReceivedMessage(message){
+function showReceivedMessage(message) {
   var node = document.createElement("DIV");
   node.setAttribute("id", "recvd-msg");
-  node.setAttribute("class","d-flex justify-content-start mb-4 msg_cotainer");
+  node.setAttribute("class", "d-flex justify-content-start mb-4 msg_cotainer");
   var textnode = document.createTextNode(message.message);
   node.appendChild(textnode);
   chatBody.appendChild(node);
-  
+
   chatBody.scrollTop = chatBody.scrollHeight;
 }
 
@@ -445,7 +446,7 @@ function setMediaBitrate(sdp, media, bitrate) {
   var lines = sdp.split("\n");
   var line = -1;
   for (var i = 0; lines.length; i++) {
-    if (lines[i].indexOf("m="+media) === 0) {
+    if (lines[i].indexOf("m=" + media) === 0) {
       line = i;
       break;
     }
@@ -460,21 +461,21 @@ function setMediaBitrate(sdp, media, bitrate) {
   line++;
 
   // Skip i and c lines
-  while(lines[line].indexOf("i=") === 0 || lines[line].indexOf("c=") === 0) {
+  while (lines[line].indexOf("i=") === 0 || lines[line].indexOf("c=") === 0) {
     line++;
   }
 
   // If we're on a b line, replace it
   if (lines[line].indexOf("b") === 0) {
     console.debug("Replaced b line at line", line);
-    lines[line] = "b=AS:"+bitrate;
+    lines[line] = "b=AS:" + bitrate;
     return lines.join("\n");
   }
-  
+
   // Add a new b line
   console.debug("Adding new b line before line", line);
   var newLines = lines.slice(0, line)
-  newLines.push("b=AS:"+bitrate)
+  newLines.push("b=AS:" + bitrate)
   newLines = newLines.concat(lines.slice(line, lines.length))
   return newLines.join("\n")
 }
